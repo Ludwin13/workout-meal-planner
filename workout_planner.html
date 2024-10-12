@@ -1,47 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>Workout Planner</title>
-        <link rel="stylesheet" href="public/css/workout_planner.css"/>
-    </head>
-    <body>
-        <nav class="navbar">
-          <ul>
-              <li><a href="main.html">About</a></li>
-              <li><a href="meal_entries.html">Meal Entry</a></li>
-              <li><a href="food_data.html">Food Data</a></li>
-              <li><a href="recipes.html">Recipe</a></li>
-              <li><a href="workout_planner.html">Workout Planner</a></li>
-            </ul>
-          </nav>
-          
-          <label>Workout Planner</label>
+  <head>
+    <meta charset="utf-8" />
+    <title>Workout Planner</title>
+    <link rel="stylesheet" href="public/css/workout_planner.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul>
+        <li><a href="main.html">About</a></li>
+        <li><a href="meal_entries.html">Meal Entry</a></li>
+        <li><a href="food_data.html">Food Data</a></li>
+        <li><a href="recipes.html">Recipe</a></li>
+        <li>
+          <a href="workout-planner/workout_planner.html">Workout Planner</a>
+        </li>
+      </ul>
+    </nav>
 
-          <div class="controls">
-            <label for="workout-dropdown"></label>
-            <select id="workout-dropdown">
-              <option value="Chest">Chest</option>
-              <option value="Shoulder">Shoulder</option>
-              <option value="Back">Back</option>
-              <option value="Biceps">Biceps</option>
-              <option value="Triceps">Triceps</option>
-              <option value="Forearms">Forearms</option>
-              <option value="Quadriceps">Quadriceps</option>
-              <option value="Hamstrings">Hamstrings</option>
-              <option value="Glutes">Glutes</option>
-            </select>
-            <button type="button" id="add-category">Add a category</button>
-          </div>
+    <h1>Workout Planner</h1>
 
+    <div class="controls">
+      <label for="workout-dropdown"></label>
+      <select id="workout-dropdown">
+        <option value="Chest">Chest</option>
+        <option value="Back">Back</option>
+        <option value="Legs">Legs</option>
+        <option value="Shoulder">Shoulder</option>
+        <option value="Biceps">Biceps</option>
+        <option value="Triceps">Triceps</option>
+      </select>
+      <button type="button" id="add-category">Add a category</button>
+      <button type="button" id="get-total-sets-reps">
+        Get Total Sets & Reps
+      </button>
+    </div>
 
-              
-          <div class="workout-entry-container-main">
-          <p>div1</p>
-          </div>
-          
+    <div class="workout-entry-container-main"></div>
 
-          <script src="workout_planner.js"></script>
-    </body>
-
+    <script src="workout_planner_view.js"></script>
+    <script src="workout_planner_controller.js"></script>
+  </body>
 </html>

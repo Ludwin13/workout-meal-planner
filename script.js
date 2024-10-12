@@ -4,7 +4,6 @@ const entryDropdown = document.getElementById("entry-dropdown");
 const addEntryButton = document.getElementById("add-entry");
 const testButton = document.getElementById("test-button");
 
-
 function addEntry() {
   const targetInputContainer = document.querySelector(
     `#${entryDropdown.value} .input-container`
@@ -23,14 +22,28 @@ function addEntry() {
 }
 
 function getCaloriesFromInputs() {
-  const breakfastInputValue = document.querySelectorAll("#breakfast input[type='number']");
-  const lunchInputValue = document.querySelectorAll("#lunch input[type='number']");
-  const dinnerInputValue = document.querySelectorAll("#dinner input[type='number']"); 
-  const snacksInputValue = document.querySelectorAll("#snacks input[type='number'");
-  const breakfastInputName = document.querySelectorAll("#breakfast input[type='text']");
+  const breakfastInputValue = document.querySelectorAll(
+    "#breakfast input[type='number']"
+  );
+  const lunchInputValue = document.querySelectorAll(
+    "#lunch input[type='number']"
+  );
+  const dinnerInputValue = document.querySelectorAll(
+    "#dinner input[type='number']"
+  );
+  const snacksInputValue = document.querySelectorAll(
+    "#snacks input[type='number'"
+  );
+  const breakfastInputName = document.querySelectorAll(
+    "#breakfast input[type='text']"
+  );
   const lunchInputName = document.querySelectorAll("#lunch input[type='text']");
-  const dinnerInputName = document.querySelectorAll("#dinner input[type='text']"); 
-  const snacksInputName = document.querySelectorAll("#snacks input[type='text'");
+  const dinnerInputName = document.querySelectorAll(
+    "#dinner input[type='text']"
+  );
+  const snacksInputName = document.querySelectorAll(
+    "#snacks input[type='text'"
+  );
 
   const breakfastData = {};
   const lunchData = {};
@@ -42,9 +55,6 @@ function getCaloriesFromInputs() {
     const calorie = breakfastInputValue[index]?.value || 0;
     breakfastData[name] = calorie;
   });
-
-
-  
 }
 
 addEntryButton.addEventListener("click", addEntry);
