@@ -42,3 +42,20 @@ h1 {
 div {
   background-color: #fefae0;
 }
+
+.workout-container {
+  display: flex;
+}
+
+.Chest fieldset,
+.Back fieldset,
+.Legs fieldset,
+.Shoulders fieldset,
+.Biceps fieldset,
+.Triceps fieldset {
+  display: flex;
+}
+
+.Chest fieldset button {
+  height: 20px;
+}
