@@ -5,91 +5,160 @@ const addCategoryButton = document.getElementById("add-category");
 const addWorkoutButton = document.getElementById("add-workout");
 const workoutDropDown = document.getElementById("workout-dropdown");
 const getTotalSets = document.getElementById("get-total");
+const workoutListTag = document.getElementById("targeted-muscle");
 
-const chestWorkoutsMap = new Map([
-  ["1", "Incline Dumbbell Press"],
-  ["2", "Incline Bench Press"],
-  ["3", "Flat Dumbbell Press"],
-  ["4", "Flat Bench Press"],
-  ["5", "Decline Dumbbell Press"],
-  ["6", "Decline Bench Press"],
-  ["7", "Chest-Focused Dips"],
-  ["8", "Machine Chest Flies"],
-  ["9", "Dumbbell Chest Flies"],
-  ["10", "Cable Chest Flies"],
-]);
+const workoutMapList = {
+  chestWorkoutsMap: new Map([
+    ["c1", "Incline Dumbbell Press"],
+    ["c2", "Incline Bench Press"],
+    ["c3", "Flat Dumbbell Press"],
+    ["c4", "Flat Bench Press"],
+    ["c5", "Decline Dumbbell Press"],
+    ["c6", "Decline Bench Press"],
+    ["c7", "Chest-Focused Dips"],
+    ["c8", "Machine Chest Flies"],
+    ["c9", "Dumbbell Chest Flies"],
+    ["c10", "Cable Chest Flies"],
+  ]),
 
-const backWorkoutsMap = new Map([
-  ["1", "Lat Pulldowns"],
-  ["2", "Chest-Supported Wide Dumbbell Rows"],
-  ["3", "Chest-Supported Close-Grip Dumbbell Rows"],
-  ["4", "Barbell Rows"],
-  ["5", "Dumbbell Shrugs"],
-  ["6", "Smith-Machine Shrugs"],
-]);
+  backWorkoutsMap: new Map([
+    ["b1", "Lat Pulldowns"],
+    ["b2", "Chest-Supported Wide Dumbbell Rows"],
+    ["b3", "Chest-Supported Close-Grip Dumbbell Rows"],
+    ["b4", "Barbell Rows"],
+    ["b5", "Dumbbell Shrugs"],
+    ["b6", "Smith-Machine Shrugs"],
+    ["b7", "Back Extensions"],
+    ["b8", "Close-Grip Machine Rows"],
+    ["b9", "Wide-Grip Barbell Rows"],
+    ["b10", "Lat Pullovers"],
+  ]),
 
-const legWorkoutsMap = new Map([
-  ["1", "Barbell Back Squats"],
-  ["2", "Smith-Machine Back Squats"],
-  ["3", "Leg Extensions"],
-  ["4", "Machine Leg Press"],
-  ["5", "Sissy Squats"],
-  ["6", "Stiff-Legged Deadlift"],
-  ["7", "Lying-down Hamstring Curl"],
-  ["8", "Romanian Deadlifts"],
-  ["9", "Bulgarian Split Squats"],
-  ["10", "Single-Leg Machine Press"],
-]);
+  legsWorkoutsMap: new Map([
+    ["l1", "Barbell Back Squats"],
+    ["l2", "Smith-Machine Back Squats"],
+    ["l3", "Leg Extensions"],
+    ["l4", "Machine Leg Press"],
+    ["l5", "Sissy Squats"],
+    ["l6", "Stiff-Legged Deadlift"],
+    ["l7", "Lying-down Hamstring Curl"],
+    ["l8", "Romanian Deadlifts"],
+    ["l9", "Bulgarian Split Squats"],
+    ["l10", "Quad Focused Single-Leg Machine Press"],
+    ["l11", "Glute Focused Single-Leg Machine Press"],
+    ["l12", "Quad Focused Bulgarian Split Squats"],
+    ["l13", "Glute Focused Bulgarian Split Squats"],
+    ["l14", "Glute Extensions"],
+    ["l15", "Smith-Machine Calf Raise"],
+    ["l16", "Seated Calf Raise"],
+  ]),
 
-const shoulderWorkoutsMap = new Map([
-  ["1", "Dumbbell Lateral Raise"],
-  ["2", "Cable Lateral Raise"],
-  ["3", "Dumbbell Shoulder Press"],
-  ["4", "Barbell Shoulder Press"],
-  ["5", "Rear-delt Flies"],
-  ["6", "Rear-delt Cable Flies"],
-]);
+  shouldersWorkoutsMap: new Map([
+    ["s1", "Dumbbell Lateral Raise"],
+    ["s2", "Cable Lateral Raise"],
+    ["s3", "Dumbbell Shoulder Press"],
+    ["s4", "Barbell Shoulder Press"],
+    ["s5", "Rear-delt Flies"],
+    ["s6", "Rear-delt Cable Flies"],
+  ]),
 
-const tricepWorkoutsMap = new Map([
-  ["1", "Bar Tricep Pushdowns"],
-  ["2", "Cable Tricep Pushdown"],
-  ["3", "Close-grip Barbell Press"],
-  ["4", "JM Press"],
-  ["5", "Tricep Dips"],
-  ["6", "Barbell Skullcrushers"],
-  ["7", "Dumbbell Skullcrushers"],
-  ["8", "Cable Tricep Extensions"],
-]);
+  tricepsWorkoutsMap: new Map([
+    ["t1", "Bar Tricep Pushdowns"],
+    ["t2", "Cable Tricep Pushdown"],
+    ["t3", "Close-grip Barbell Press"],
+    ["t4", "JM Press"],
+    ["t5", "Tricep Dips"],
+    ["t6", "Barbell Skullcrushers"],
+    ["t7", "Dumbbell Skullcrushers"],
+    ["t8", "Cable Tricep Extensions"],
+  ]),
 
-const bicepWorkoutsMap = new Map([
-  ["1", "Supinated Bicep Dumbbell Curls"],
-  ["2", "Barbell Bicep Curls"],
-  ["3", "Hammer Curls"],
-  ["4", "Preacher Curls"],
-  ["5", "Spider Curls"],
-  ["6", "Seated Dumbbell Biceps Curls"],
-]);
-
-// const chestWorkouts = new Map();
-// const backWorkouts = new Map();
-// const legWorkouts = new Map();
-// const shouldersWorkouts = new Map();
-// const bicepsWorkouts = new Map();
-// const tricepsWorkouts = new Map();
-const parametersMap = {
-  // 1 === Chest
-  // 2 === Back
-  // 3 === Leg
-  // 4 === Shoulder
-  // 5 === Biceps
-  // 6 === Triceps
-  chestParam: new Map(),
-  backParam: new Map(),
-  legsParam: new Map(),
-  shouldersParam: new Map(),
-  bicepsParam: new Map(),
-  tricepsParam: new Map(),
+  bicepsWorkoutsMap: new Map([
+    ["b1", "Supinated Bicep Dumbbell Curls"],
+    ["b2", "Barbell Bicep Curls"],
+    ["b3", "Hammer Curls"],
+    ["b4", "Preacher Curls"],
+    ["b5", "Spider Curls"],
+    ["b6", "Seated Dumbbell Biceps Curls"],
+    ["b7", "Incline Dumbbell Curls"],
+    ["b8", "Bayesian Curls"],
+  ]),
 };
+
+const targetedMusclesMap = new Map([
+  ["c1", ["cm1", "cm2", "sm1"]],
+  ["c2", ["cm1", "cm2", "sm1"]],
+  ["c3", ["cm2", "cm3"]],
+  ["c4", ["cm2", "cm3"]],
+  ["c5", ["cm3"]],
+  ["c6", ["cm3"]],
+  ["c7", ["cm3"]],
+  ["c8", ["cm2", "cm3"]],
+  ["c9", ["cm2"]],
+  ["c10", ["cm2"]],
+  ["c11", ["cm1"]],
+  ["c12", ["cm1"]],
+  ["s3", ["sm1"]],
+  ["s4", ["sm1"]],
+  ["s1", ["sm2"]],
+  ["s2", ["sm2"]],
+  ["s5", ["sm3"]],
+  ["s6", ["sm3"]],
+  ["b2", ["bm1", "bm2", "bm2"]],
+  ["b4", ["bm2", "bm5"]],
+  ["b7", ["bm3"]],
+  ["b5", ["bm4"]],
+  ["b6", ["bm4"]],
+  ["b1", ["bm5"]],
+  ["l1", ["lm1"]],
+  ["l2", ["lm1"]],
+  ["l3", ["lm1"]],
+  ["l4", ["lm1"]],
+  ["l5", ["lm1"]],
+  ["l6", ["lm2"]],
+  ["l7", ["lm2"]],
+  ["l8", ["lm3"]],
+  ["l15", ["lm4"]],
+  ["l16", ["lm4"]],
+  ["b7", ["bm1"]],
+  ["b3", ["bm4"]],
+  ["t1", ["tm1", "tm3"]],
+  ["t2", ["tm1", "tm3"]],
+  ["t3", ["tm2", "tm3"]],
+  ["t4", ["tm2", "tm3"]],
+]);
+
+const targetedMusclesTranslation = new Map([
+  ["cm1", "Upper Chest"],
+  ["cm2", "Middle Chest"],
+  ["cm3", "Lower Chest"],
+  ["sm1", "Front Delts"],
+  ["sm2", "Mid Delts"],
+  ["sm3", "Rear Delts"],
+  ["bm1", "Upper Back"],
+  ["bm2", "Middle Back"],
+  ["bm3", "Lower Back"],
+  ["bm4", "Trapezius"],
+  ["bm5", "Lats"],
+  ["lm1", "Quads"],
+  ["lm2", "Hamstrings"],
+  ["lm3", "Glutes"],
+  ["lm4", "Calves"],
+  ["bm1", "Long Head Biceps"],
+  ["bm2", "Short Head Biceps"],
+  ["bm3", "Brachialis"],
+  ["bm4", "Brachioradialis"],
+  ["tm1", "Long Head Triceps"],
+  ["tm2", "Medial Head Triceps"],
+  ["tm3", "Lateral Head Triceps"],
+]);
+
+const currentTargetedMuscles = [];
+
+const currentTargetedMusclesV2 = [];
+const uniqueTargetedMuscle = [];
+
+const parametersMap = new Map();
 
 const workoutMaps = {
   chestWorkouts: new Map(),
@@ -100,100 +169,46 @@ const workoutMaps = {
   tricepsWorkouts: new Map(),
 };
 
-const removeWorkoutCategories = new Map([
-  ["category-remove-chest", workoutMaps.chestWorkouts],
-  ["category-remove-back", workoutMaps.backWorkouts],
-  ["category-remove-legs", workoutMaps.legsWorkouts],
-  ["category-remove-shoulders", workoutMaps.shouldersWorkouts],
-  ["category-remove-biceps", workoutMaps.bicepsWorkouts],
-  ["category-remove-triceps", workoutMaps.tricepsWorkouts],
-]);
-
 function addCategory() {
   // Add new category
   const newCategoryString = `
-    <fieldset class="${workoutDropDown.value}">
+    <fieldset id="${workoutDropDown.value}">
         <legend>${workoutDropDown.value}</legend>
-        <label>Max Sets Per Workout: <input type="number" id="total-sets-${workoutDropDown.value}" placeholder="e.g. 4-8 sets"></input></label>
-        
+        <input id="${workoutDropDown.value}-total" type="number" placeholder="10"></input>
         <button type="button" id="add-workout-${workoutDropDown.value}">Add Workout</button>
         <select id="${workoutDropDown.value}-workouts"></select>
         <button type="button" id="category-remove-${workoutDropDown.value}">X</button>
-    </fieldset>`;
+    </fieldset> <br />`;
 
   // Check if workout category (fieldset) already exists.
-  const workoutCategory = document.querySelector(`.${workoutDropDown.value}`);
+  const workoutCategory = document.querySelector(`#${workoutDropDown.value}`);
   if (workoutCategory === null) {
+    console.log(workoutCategory);
     workoutEntryContainer.insertAdjacentHTML("beforeend", newCategoryString);
-  }
+    const workoutSelection = document.querySelector(
+      `#${workoutDropDown.value} #${workoutDropDown.value}-workouts`
+    );
 
-  const chestWorkoutSelection = document.querySelector(
-    ".Chest #Chest-workouts"
-  );
-  const backWorkoutSelection = document.querySelector(`.Back #Back-workouts`);
-  const legsWorkoutSelection = document.querySelector(`.Legs #Legs-workouts`);
-  const shoulderWorkoutSelection = document.querySelector(
-    `.Shoulders #Shoulders-workouts`
-  );
-  const bicepsWorkoutSelection = document.querySelector(
-    `.Biceps #Biceps-workouts`
-  );
-  const tricepsWorkoutSelection = document.querySelector(
-    `.Triceps #Triceps-workouts`
-  );
+    const workoutMapReference = `${workoutDropDown.value.toLowerCase()}WorkoutsMap`;
+    if (workoutMapList[workoutMapReference] instanceof Map) {
+      populateWorkoutOption(
+        workoutSelection,
+        workoutMapList[workoutMapReference]
+      );
+    }
+  } else {
+    window.alert("Category already added!");
+  }
+}
 
-  if (chestWorkoutSelection !== null) {
-    chestWorkoutsMap.forEach((value) => {
+//populate dynamically generated workout selection with values
+function populateWorkoutOption(selection, workouts) {
+  if (selection !== null) {
+    workouts.forEach((value) => {
       const option = document.createElement("option");
       option.value = value;
       option.text = value;
-      chestWorkoutSelection.appendChild(option);
-    });
-  }
-
-  if (backWorkoutSelection !== null) {
-    backWorkoutsMap.forEach((value) => {
-      const option = document.createElement("option");
-      option.value = value;
-      option.text = value;
-      backWorkoutSelection.appendChild(option);
-    });
-  }
-
-  //Legs
-  if (legsWorkoutSelection !== null) {
-    legWorkoutsMap.forEach((value) => {
-      const option = document.createElement("option");
-      option.value = value;
-      option.text = value;
-      legsWorkoutSelection.appendChild(option);
-    });
-  }
-  //Shoulders
-  if (shoulderWorkoutSelection !== null) {
-    shoulderWorkoutsMap.forEach((value) => {
-      const option = document.createElement("option");
-      option.value = value;
-      option.text = value;
-      shoulderWorkoutSelection.appendChild(option);
-    });
-  }
-  //Biceps
-  if (bicepsWorkoutSelection !== null) {
-    bicepWorkoutsMap.forEach((value) => {
-      const option = document.createElement("option");
-      option.value = value;
-      option.text = value;
-      bicepsWorkoutSelection.appendChild(option);
-    });
-  }
-  //Triceps
-  if (tricepsWorkoutSelection !== null) {
-    tricepWorkoutsMap.forEach((value) => {
-      const option = document.createElement("option");
-      option.value = value;
-      option.text = value;
-      tricepsWorkoutSelection.appendChild(option);
+      selection.appendChild(option);
     });
   }
 }
@@ -203,87 +218,7 @@ workoutEntryContainer.addEventListener("click", (event) => {
   const target = event.target;
 
   if (target.tagName === "INPUT" && target.type === "number") {
-    if (target.id.startsWith("total-sets-")) {
-      if (target.id.includes("Chest")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Back")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Shoulders")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Legs")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Biceps")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Triceps")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      }
-    } else if (target.id.startsWith("sets-")) {
-      if (target.id.includes("Chest-")) {
-        target.addEventListener("input", function () {
-          parametersMap.chestParam.set("");
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Back-")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Shoulders-")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Legs-")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Biceps-")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Triceps-")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      }
-    } else if (target.id.startsWith("reps-")) {
-      // console.log(target.value);
-      if (target.id.includes("Chest")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Back")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Shoulders")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Legs")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Biceps")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      } else if (target.id.includes("Triceps")) {
-        target.addEventListener("input", function () {
-          console.log(target.value);
-        });
-      }
-    }
+    getTargetValue(target);
   }
 
   if (target.tagName === "BUTTON") {
@@ -313,29 +248,33 @@ addCategoryButton.addEventListener("click", addCategory);
 function addWorkout(category, selectedWorkoutMap) {
   const workoutSelection = document.querySelector(`#${category}-workouts`);
   const workoutEntryNumber =
-    document.querySelectorAll(`.${category} fieldset`).length + 1;
+    document.querySelectorAll(`#${category} fieldset`).length + 1;
 
   if ([...selectedWorkoutMap.values()].includes(workoutSelection.value)) {
     window.alert("Workout already added");
+    // <legend>${workoutDropDown.value} Workout ${workoutEntryNumber}</legend>
   } else {
     const addWorkout = `<fieldset class="${workoutSelection.value}">
-        <legend>Entry ${workoutEntryNumber}</legend>
         <div class="name-container">
           <h3>${workoutSelection.value}</h3>
         </div>
         <div class="sets-container">
-          <label for="sets-${workoutSelection.value}">Sets: </label><input type="number" id="sets-${category}-${workoutSelection.value}">
+          <label for="${category}-sets|${workoutSelection.value}">Sets: </label><input type="number" id="${category}-sets|${workoutSelection.value}">
         </div>
         <div class="reps-container">
-          <label for="reps-${workoutSelection.value}">Reps: </label><input type="number" id="reps-${category}-${workoutSelection.value}">
+          <label for="${category}-reps|${workoutSelection.value}">Reps: </label><input type="number" id="${category}-reps|${workoutSelection.value}">
         </div>
           <button type="button" id="remove-workout-${category}">X</button>
         </fieldset>`;
     selectedWorkoutMap.set(workoutEntryNumber, workoutSelection.value);
 
-    const currentCategory = document.querySelector(`.${category}`);
-
+    const currentCategory = document.querySelector(`#${category}`);
     currentCategory.insertAdjacentHTML("beforeend", addWorkout);
+    addTargetedMuscle(
+      category.toLowerCase(),
+      workoutSelection.value,
+      selectedWorkoutMap
+    );
   }
 }
 
@@ -360,7 +299,6 @@ function removeWorkout(selectedWorkoutMap, target) {
 }
 
 function handleRemoveCategory(target, selectedWorkoutMap) {
-  console.log("inside");
   selectedWorkoutMap.clear();
   target.closest("fieldset").remove();
 }
@@ -373,8 +311,52 @@ function retrieveInputsVal() {
   });
 }
 
-function inputNumberHandler(target, mapReference) {
+function getTargetValue(target) {
   target.addEventListener("input", function () {});
+}
+
+function addTargetedMuscle(category, selectedWorkout, selectedWorkoutMap) {
+  const targetCategory = category + "WorkoutsMap";
+
+  selectedWorkoutMap.forEach((selectedWorkout) => {
+    workoutMapList[targetCategory].forEach((workout, key) => {
+      if (
+        selectedWorkout === workout &&
+        !currentTargetedMuscles.includes(key)
+      ) {
+        currentTargetedMuscles.push(key);
+        //console.log(currentTargetedMuscles);
+      }
+    });
+  });
+  console.log("currentTargetedMuscles contents: ", currentTargetedMuscles);
+  populateWorkoutListTag();
+}
+
+function populateWorkoutListTag() {
+  //Clears the list content
+  workoutListTag.innerHTML = "";
+
+  currentTargetedMuscles.forEach((workoutKey) => {
+    targetedMusclesMap.get(workoutKey).forEach((values) => {
+      if (!currentTargetedMusclesV2.includes(values)) {
+        currentTargetedMusclesV2.push(values);
+      }
+    });
+  });
+  currentTargetedMusclesV2.forEach((muscleKey) => {
+    if (
+      !uniqueTargetedMuscle.includes(targetedMusclesTranslation.get(muscleKey))
+    ) {
+      uniqueTargetedMuscle.push(targetedMusclesTranslation.get(muscleKey));
+    }
+  });
+
+  uniqueTargetedMuscle.forEach((muscle) => {
+    const listContent = document.createElement("li");
+    listContent.textContent = muscle;
+    workoutListTag.append(listContent);
+  });
 }
 
 getTotalSets.addEventListener("click", retrieveInputsVal);
